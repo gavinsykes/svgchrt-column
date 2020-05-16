@@ -26,6 +26,9 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "d3-axis": "^1.0.12",
+    "d3-scale": "^3.2.1",
+    "d3-selection": "^1.4.1",
     "svgchrt": "^0.2.9"
   }
 }

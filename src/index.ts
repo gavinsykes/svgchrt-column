@@ -1,6 +1,12 @@
 const SVGChrt = require('svgchrt');
+const d3 = Object.assign({}, require('d3-selection'), require('d3-scale'), require('d3-axis'));
 
-data = [
+interface DataItem {
+  key   : string;
+  value : number;
+}
+
+let data: DataItem[] = [
   {
     key   : 'One',
     value : 1
