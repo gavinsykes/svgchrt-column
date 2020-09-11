@@ -1,11 +1,13 @@
 SVGChrt-Column
 ==============
 
-![npm](https://img.shields.io/npm/v/svgchrt)
-![npm](https://img.shields.io/npm/dm/svgchrt)
-![GitHub top language](https://img.shields.io/github/languages/top/gavinsykes/svgchrt)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/gavinsykes/svgchrt)
-![NPM](https://img.shields.io/npm/l/svgchrt)
+![npm](https://img.shields.io/npm/v/svgchrt-column)
+![npm](https://img.shields.io/npm/dm/svgchrt-column)
+![Travis (.com)](https://img.shields.io/travis/com/gavinsykes/svgchrt-column)
+[![codecov](https://codecov.io/gh/gavinsykes/svgchrt-column/branch/master/graph/badge.svg)](https://codecov.io/gh/gavinsykes/svgchrt-column)
+![GitHub top language](https://img.shields.io/github/languages/top/gavinsykes/svgchrt-column)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/gavinsykes/svgchrt-column)
+![NPM](https://img.shields.io/npm/l/svgchrt-column)
 
 The easiest way to put together a column chart visualisation in SVG.
 --------------------------------------------------------------------
@@ -81,7 +83,7 @@ Chart.render();
 
          1. text (string), default: `''`
 
-            Contains the text to display as the axis's label, if it is not an empty string and `options.chart.axes.<bottom|left|top|right>.lael.display` is set to `true`, it will provide a `<text>` element with the class of `axis-label` for styling with CSS. Other attributes will be `dy="1em"`, `text-anchor="middle"` and `x` and `y` which the library will calculate.
+            Contains the text to display as the axis's label, if it is not an empty string and `options.chart.axes.<bottom|left|top|right>.label.display` is set to `true`, it will provide a `<text>` element with the class of `axis-label` for styling with CSS. Other attributes will be `dy="1em"`, `text-anchor="middle"` and `x` and `y` which the library will calculate.
 
    1. margin (object)
 
