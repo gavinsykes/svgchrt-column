@@ -26,33 +26,25 @@ class SVGChrtColumn extends SVGChrt {
                ? this.data // callbacks like sort and map
                : undefined,
       left   : this.settings.chart.axes.left.display
-               ? switch(type) {
-                   case 'clustered':
-                     [0, d3.max(data, d => d.value)];
-                     break;
-                   case 'stacked':
-                     [0, d3.max(sum)];
-                     break;
-                   case 'stacked100':
-                     [0, 100];
-                     break;
-                 }
+               ? this.settings.chart.type === 'clustered'
+                 ? [0, d3.max(data, d => d.value)]
+                 : this.settings.chart.type === 'stacked'
+                   ? [0, d3.max(sum)]
+                   : this.settings.chart.type === 'stacked100'
+                     ? [0, 100]
+                     : undefined
                : undefined,
       top    : this.settings.chart.axes.top.display
                ? this.data
                : undefined,
-      right  : this.settings.chart.axes.right.display
-               ? switch(type) {
-                   case 'clustered':
-                     [0, d3.max(data, d => d.value)];
-                     break;
-                   case 'stacked':
-                     [0, d3.max(sum)];
-                     break;
-                   case 'stacked100':
-                     [0, 100];
-                     break;
-                 }
+      right  : this.settings.chart.axes.left.display
+               ? this.settings.chart.type === 'clustered'
+                 ? [0, d3.max(data, d => d.value)]
+                 : this.settings.chart.type === 'stacked'
+                   ? [0, d3.max(sum)]
+                   : this.settings.chart.type === 'stacked100'
+                     ? [0, 100]
+                     : undefined
                : undefined
     };
     const ranges = {
@@ -89,10 +81,10 @@ class SVGChrtColumn extends SVGChrt {
                    .padding(0.1) // Variable for padding?
                : undefined,
       left   : ranges.left
-               ? d3.scaleLinear()
+               ? d3.scaleLinear() // Options for things like scaleLog etc.
                    .domain(domains.left)
                    .range(ranges.left)
-                   .nice() // Options for things like scaleLog etc.
+                   .nice()
                : undefined,
       top    : ranges.top
                ? d3.scaleBand()
@@ -101,10 +93,10 @@ class SVGChrtColumn extends SVGChrt {
                    .padding(0.1)
                : undefined,
       right  : ranges.right
-               ? d3.scaleLinear()
+               ? d3.scaleLinear() // Same options as on left
                    .domain(domains.right)
                    .range(ranges.right)
-                   .nice() // Same options as on left
+                   .nice()
                : undefined
     };
     const axisFuncs = {
@@ -126,22 +118,22 @@ class SVGChrtColumn extends SVGChrt {
     const axes = {
       bottom : axisFuncs.bottom
                ? this.appendSVGChild('g', this.chartArea, {
-                   class : 'axis x-axis bottom-axis'
+                   'class' : 'axis x-axis bottom-axis'
                  })
                : undefined,
       left   : axisFuncs.left
                ? this.appendSVGChild('g', this.chartArea, {
-                   class : 'axis y-axis left-axis'
+                   'class' : 'axis y-axis left-axis'
                  })
                : undefined,
       top    : axisFuncs.top
                ? this.appendSVGChild('g', this.chartArea, {
-                   class : 'axis x-axis top-axis'
+                   'class' : 'axis x-axis top-axis'
                  })
                : undefined,
       right  : axisFuncs.right
                ? this.appendSVGChild('g', this.chartArea, {
-                   class : 'axis y-axis right-axis'
+                   'class' : 'axis y-axis right-axis'
                  })
                : undefined
     };
@@ -149,22 +141,22 @@ class SVGChrtColumn extends SVGChrt {
     const axisScales = {
       bottom : axes.bottom
                ? this.appendSVGChild('g', axes.bottom, {
-                   class : 'axis-scale x-axis-scale bottom-axis-scale'
+                   'class' : 'axis-scale x-axis-scale bottom-axis-scale'
                  })
                : undefined,
       left   : axes.left
                ? this.appendSVGChild('g', axes.left, {
-                   class : 'axis-scale y-axis-scale left-axis-scale'
+                   'class' : 'axis-scale y-axis-scale left-axis-scale'
                  })
                : undefined,
       top    : axes.top
                ? this.appendSVGChild('g', axes.top, {
-                   class : 'axis-scale x-axis-scale top-axis-scale'
+                   'class' : 'axis-scale x-axis-scale top-axis-scale'
                  })
                : undefined,
       right  : axes.right
                ? this.appendSVGChild('g', axes.right, {
-                   class : 'axis-scale y-axis-scale right-axis-scale'
+                   'class' : 'axis-scale y-axis-scale right-axis-scale'
                  })
                : undefined
     };
@@ -191,10 +183,10 @@ class SVGChrtColumn extends SVGChrt {
                settings.chart.axes.bottom.label.display &&
                settings.chart.axes.bottom.label.text
                ? this.appendSVGChild('text', axes.bottom, {
-                   class         : 'axis-label x-axis-label bottom-axis-label',
-                   dy            : '1em',
-                   'text-anchor' : 'middle',
-                   transform     : `translate(0,${axisScales.bottom.getBBox().height + 4})`
+                   'class'         : 'axis-label x-axis-label bottom-axis-label',
+                   'dy'            : '1em',
+                   'text-anchor'   : 'middle',
+                   'transform'     : `translate(0,${axisScales.bottom.getBBox().height + 4})`
                  }, 'Bottom Label')
                : undefined,
       left   : axes.left &&
@@ -211,20 +203,20 @@ class SVGChrtColumn extends SVGChrt {
                settings.chart.axes.top.label.display &&
                settings.chart.axes.top.label.text
                ? this.appendSVGChild('text', axes.top, {
-                   class         : 'axis-label x-axis-label top-axis-label',
-                   dy            : '1em',
-                   'text-anchor' : 'middle',
-                   transform     : `translate(0,0)`
+                   'class'         : 'axis-label x-axis-label top-axis-label',
+                   'dy'            : '1em',
+                   'text-anchor'   : 'middle',
+                   'transform'     : `translate(0,0)`
                  }, 'Top Label')
                : undefined,
       right  : axes.right &&
                settings.chart.axes.right.label.display &&
                settings.chart.axes.right.label.text
                ? this.appendSVGChild('text', axes.right, {
-                   class         : 'axis-label y-axis-label right-axis-label',
-                   dy            : '1em',
-                   'text-anchor' : 'middle',
-                   transform     : `rotate(270)`
+                   'class'         : 'axis-label y-axis-label right-axis-label',
+                   'dy'            : '1em',
+                   'text-anchor'   : 'middle',
+                   'transform'     : `rotate(270)`
                  }, 'Right Label')
                : undefined
     };
