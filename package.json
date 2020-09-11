@@ -45,7 +45,8 @@
     "test:cover": "nyc --reporter=text --reporter=text-lcov --reporter=html --reporter=json mocha -r ts-node/register dev/**/*.spec.ts",
     "test:prettier": "npm run prettier && npm run test",
     "update": "npm update",
-    "updte:major": "npx npm-check-updates -u && npm install"
+    "update:major": "npx npm-check-updates -u && npm install",
+    "update:svgchrt": "npm install svgchrt@latest"
   },
   "version": "0.0.1"
 }
