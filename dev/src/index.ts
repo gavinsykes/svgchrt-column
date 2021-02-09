@@ -1,6 +1,10 @@
+/// <reference types="svgchrt" />
+
 import plot from './plot';
 
-const SVGChrt = require('svgchrt');
+import { SVGChrt } from 'svgchrt';
+
+console.log(SVGChrt);
 
 const possibleTypes = ['overlaid', 'clustered', 'stacked', 'stacked100'];
 
@@ -8,4 +12,5 @@ class SVGChrtColumn extends SVGChrt {
   plot = plot;
 }
 
-module.exports = SVGChrtColumn; // Could use this in svgchrt to export the bits I and the user need to add stuff?
+// Could use this in svgchrt to export the bits I and the user need to add stuff?
+module.exports = SVGChrtColumn;

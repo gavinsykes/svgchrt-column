@@ -412,7 +412,7 @@ export default function plot(
   if (axes.top) {
     if (axes.left || axes.right) {
       ranges.y[1] =
-        (axisLabels?.top?.getBBox().height + axisScales?.top?.getBBox().height ?? 0) + 4;
+        (axisLabels.top ? axisLabels.top.getBBox().height : 0) + (axisScales.top ? axisScales.top.getBBox().height : 0) + 4;
       if (axes.left) {
         scales.left.range(ranges.y);
       }
@@ -425,9 +425,9 @@ export default function plot(
     if (axes.top || axes.bottom) {
       ranges.x[1] =
         caller.getChartArea().width -
-        (axisLabels.right?.getBBox()?.height ?? 0) -
+        (axisLabels.right ? axisLabels.right.getBBox().height : 0) -
         4 -
-        (axisScales.right?.getBBox()?.width ?? 0);
+        (axisScales.right ? axisScales.right.getBBox().width : 0);
       if (axes.top) {
         scales.top.range(ranges.x);
       }
@@ -439,29 +439,33 @@ export default function plot(
 
   if (axisScales.bottom) {
     d3.select(axisScales.bottom).call(axisFuncs.bottom);
+    if (axisLabels.bottom) {
     axisLabels.bottom.setAttribute(
       'transform',
       `translate(${(ranges.x[0] + ranges.x[1]) / 2},${
         axisScales.bottom.getBBox().height
       })`
-    );
-    axes.bottom.setAttribute('transform', `translate(0,${ranges.y[0]})`);
+    );}
+    if (axes.bottom) {
+    axes.bottom.setAttribute('transform', `translate(0,${ranges.y[0]})`);}
   }
   if (axisScales.left) {
-    d3.select(axisScales.left).call(axisFuncs.left);
+    if (axisFuncs.left) {
+    d3.select(axisScales.left).call(axisFuncs.left);}
+    if (axisLabels.left) {
     axisLabels.left.setAttribute(
       'transform',
       `translate(0,${(ranges.y[0] + ranges.y[1]) / 2}) rotate(270)`
-    );
+    );}
   }
   if (axisScales.right) {
     d3.select(axisScales.right).call(axisFuncs.right);
-    axisLabels.right.setAttribute(
+    if (axisLabels.right) {axisLabels.right.setAttribute(
       'transform',
       `translate(${axisScales.right.getBBox().width},${
         (ranges.y[0] + ranges.y[1]) / 2
       }) rotate(270)`
-    );
+    )};
     axes.right?.setAttribute('transform', `translate(${ranges.x[1]},0)`);
   }
   if (axisScales.top) {
